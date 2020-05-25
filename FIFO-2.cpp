@@ -3,14 +3,15 @@
 typedef int Data;
 class FIFO_1
 {
-public:
 	int maxsize;                                    //максимальное кол-во размеров очереди
 	Data* Array;                                    // одномерный массив где всё хранится
 	int item;                                       //текущий
+public:
+
 
 	FIFO_1(Data s) {                                //конструктор с заданием колличества элементов в циклической очереди
 		maxsize = s;
-		Array = new Data[maxsize];
+		Array = new Data[maxsize]{ NULL };
 		item = 0;
 	};
 	~FIFO_1() {
@@ -35,6 +36,11 @@ private:
 			item = 0;
 		Array[item] = NULL;
 		item++;
+	}
+	void _next(int n = 1) {
+		item += n;
+		if (item >= maxsize)
+			item - maxsize;
 	}
 
 	void _expansion() {                                 //расширение круга на 1
@@ -70,5 +76,8 @@ public:                                                      //интерфей�
 	}
 	void Narrowing() {
 		_narrowing();
+	}
+	void Next(int n = 1) {
+		_next(n = 1);
 	}
 };
