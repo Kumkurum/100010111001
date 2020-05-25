@@ -1,6 +1,6 @@
 #include <iostream>
 
-struct countdown {
+struct countdown {          // структура для  записи пар
 	int X;
 	int Y;
 	countdown(int x = 0, int y = 0) {
@@ -8,30 +8,30 @@ struct countdown {
 		Y = y;
 	}
 };
-void Fu(countdown* C, int N, int n) {
-	int iter = 1;
+void Fu(countdown* C, int N, int n) {                           // функция для работы требует C[] -массив структур,N- колличество структур в массиве и n -число картности
+	int iter = 1;                                        //для отслеживания повторов
 	int _n;
 	for (int i = 0; i < N; i++) {
-		if (C[i].Y == C[i + 1].Y) {
+		if (C[i].Y == C[i + 1].Y) {                   // условие выявления повтора
 			for (int j = i; j < N; j++) {
 				if (C[j].Y == C[j + 1].Y)
-					iter++;
+					iter++;              //нашли повтор - увеличи счётчик
 				else
-					break;
+					break;                
 			}
 		}
-		std::cout << "( " << C[i].X << "," << C[i].Y << " ), ";
-		if (iter > 1) {
-			_n = iter / n;
+		std::cout << "( " << C[i].X << "," << C[i].Y << " ), ";      // вывод первой пары, выводится всегда
+		if (iter > 1) {                                               // проверка на повторы
+			_n = iter / n;                                        //сколько кратных повторов есть
 			if (_n) {
-				for (int k = 0; k < _n; k++) {
+				for (int k = 0; k < _n; k++) {                   //цикл для вывода кратных повторов
 					std::cout << "(" << C[i + n * _n - 1].X << ", " << C[i + n * _n - 1].Y << "), ";
 				}
 			}
-			if ((i + n * _n - 1) != (i + iter - 1))
+			if ((i + n * _n - 1) != (i + iter - 1))            // если последний элемент не совпадает с кратным выводим конечный элемент
 				std::cout << "( " << C[i + iter - 1].X << "," << C[i + iter - 1].Y << " ), ";
 		}
-		i = i + iter - 1;
-		iter = 1;
+		i = i + iter - 1;                                            //удаление из цикла всех повторов
+		iter = 1;                                                     //обновление счётчика повторов
 	}
 }
