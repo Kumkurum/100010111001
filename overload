@@ -1,0 +1,66 @@
+#ifndef VECTOR_H_
+#define VECTOR_H_
+#include <iostream>
+class complex
+{
+private:
+    double real;
+    double mnim;
+public:
+    complex();
+    complex(double r, double m);
+    ~complex();
+    complex operator+(const complex& b) const;
+    complex operator-(const complex& b) const;
+    complex operator~() const;
+    complex operator*(double n) const;
+    complex operator*(const complex& b) const;
+    // friends
+    friend complex operator*(double n, const complex& a);
+    friend std::ostream& operator<<(std::ostream& os, const complex& v);
+    friend std::istream& operator>>(std::istream& os, complex& v);
+};
+#endif
+complex::complex() {
+	real = 0;
+	mnim = 0;
+}
+complex::complex(double r, double m) {
+	real = r;
+	mnim = m;
+}
+complex::~complex() {}   // destructor
+
+complex complex::operator+(const complex& b) const {
+	return complex(real + b.real, mnim + b.mnim);
+}
+
+complex complex::operator-(const complex& b) const {
+	return complex(real - b.real, mnim - b.mnim);
+}
+
+complex complex::operator~() const {
+	return complex(real, -mnim);
+}
+
+complex complex::operator*(double n) const {
+	return complex(n * real, n * mnim);
+}
+complex operator*(double n, const complex& a) {
+	return a * n;
+}
+complex complex::operator*(const complex& b) const {
+	return complex(real * b.real - mnim * b.mnim, real * b.mnim + b.real * mnim);
+};
+
+std::ostream& operator<<(std::ostream& os, const complex& v) {
+	os << "(" << v.real << ", " << v.mnim << "i)";
+	return os;
+}
+std::istream& operator>>(std::istream& os,  complex& v) {
+	std::cout << "real: ";
+	std::cin >> v.real;
+	std::cout << "mnim: ";
+	std::cin >> v.mnim;
+	return os;
+};
